@@ -44,7 +44,7 @@ class MasterMind
     change_secret_code_to_i = secret_code.split('').map do |code|
                                   code.to_i
                                end
-     12.times do |i|
+    12.times do |i|
       guess = comp_code_breaker.knuth_algo(i+1)
       code_breaker.guess_output(guess, "Computer's")
       letters = code_maker.give_feedback(change_secret_code_to_i, guess)

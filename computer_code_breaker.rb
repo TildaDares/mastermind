@@ -2,7 +2,7 @@ class Computer
   def initialize
     permutations = [1, 2, 3, 4, 5, 6].repeated_permutation(4).to_a
     @possible_answers = permutations.map {|answer| answer.join('')}
-    @pruned_answers =  permutations
+    @@pruned_answers = @possible_answers
     @outcomes = [00, 01, 02, 03, 04, 10, 11, 12, 13, 20, 21, 22, 31, 40]
   end
 
@@ -16,7 +16,7 @@ class Computer
       @remove_these << answer unless code_maker.outcomes == feedback
     end
     @remove_these.each do |delete_member|
-      @pruned_answers.delete(delete_member)
+      @@pruned_answers.delete(delete_member)
     end
   end
 
@@ -32,12 +32,12 @@ class Computer
         max = 0
         @outcomes.each do |outcome|
           count = 0
-          @pruned_answers.each do |answer|
-            code_maker.give_feedback(answer, guess)
+          @@pruned_answers.each do |answer|
+            code_maker.give_feedback(answer.split(''), guess)
             count += 1 if code_maker.outcomes.join().to_i == outcome
           end
           max = count if count > max
-          nextGuess = guess if max <= min
+          nextGuess = guess if max < min
         end
      end
       nextGuess
