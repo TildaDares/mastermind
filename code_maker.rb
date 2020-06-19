@@ -31,7 +31,7 @@ class CodeMaker
         @outcomes[0] += 1
       end
     end
-    return feedback_letters
+    feedback_letters
   end
 
   def computer_secret_code
