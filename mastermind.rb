@@ -66,6 +66,7 @@ class MasterMind
       comp_code_breaker.prune_possible_answers(guess, code_maker.outcomes)
      end
    end
+   puts 'Computer loses :('
   end
 end
 
