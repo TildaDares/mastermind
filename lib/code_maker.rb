@@ -1,6 +1,6 @@
 require 'colorize'
 class CodeMaker
-  attr_reader :colors 
+  attr_reader :colors
   attr_accessor :outcomes
   def initialize
     @colors = [' 1 '.on_red, ' 2 '.on_green, ' 3 '.on_yellow.black, ' 4 '.on_blue, ' 5 '.on_magenta, ' 6 '.on_cyan]
@@ -8,7 +8,7 @@ class CodeMaker
 
   def give_feedback(code, guess)
     @code = code
-    @outcomes = [00]
+    @outcomes = [0o0]
     guess = guess.split('')
     int_guess = guess.map do |guesses|
       guesses.to_i
@@ -20,12 +20,12 @@ class CodeMaker
       if item.to_i == int_guess[index]
         feedback_letters << 'R'
         @outcomes[0] += 10
-      else 
+      else
         removed_already << item.to_i
         filtered_guess << int_guess[index]
       end
     end
-    for i in (0...filtered_guess.length) do
+    (0...filtered_guess.length).each do |i|
       if filtered_guess.include?(removed_already[i])
         feedback_letters << 'W'
         @outcomes[0] += 1
@@ -35,7 +35,7 @@ class CodeMaker
   end
 
   def computer_secret_code
-    secret_code = 4.times.map {[1,2,3,4,5,6].sample}
+    secret_code = 4.times.map { [1, 2, 3, 4, 5, 6].sample }
     secret_code
   end
 end

@@ -1,9 +1,11 @@
+# frozen_string_literal :true
+
 class Computer
   def initialize
     permutations = [1, 2, 3, 4, 5, 6].repeated_permutation(4).to_a
-    @possible_answers = permutations.map {|answer| answer.join('')}
-    @@pruned_answers = permutations.map {|answer| answer.join('')}
-    @outcomes = [00, 01, 02, 03, 04, 10, 11, 12, 13, 20, 21, 22, 31, 40]
+    @possible_answers = permutations.map { |answer| answer.join('') }
+    @@pruned_answers = permutations.map { |answer| answer.join('') }
+    @outcomes = [0o0, 0o1, 0o2, 0o3, 0o4, 10, 11, 12, 13, 20, 21, 22, 31, 40]
   end
 
   def prune_possible_answers(guess, feedback)
@@ -27,9 +29,9 @@ class Computer
     nextGuess = ''
     guess_hash = []
     guesses = []
-    min = 100000
+    min = 100_000
     if turn == 1
-      return '1122'
+      '1122'
     else
       @@pruned_answers.each do |guess|
         max = 0
@@ -37,17 +39,17 @@ class Computer
           count = 0
           @@pruned_answers.each do |answer|
             code_maker.give_feedback(answer.split(''), guess)
-            count += 1  if code_maker.outcomes.join().to_i == outcome
+            count += 1  if code_maker.outcomes.join.to_i == outcome
           end
-           if count > max
-              max = count 
-              guess_hash << max
-              guesses << guess
-           end
+          next unless count > max
+
+          max = count
+          guess_hash << max
+          guesses << guess
         end
-     end 
-     nextGuess = guesses[guess_hash.index(guess_hash.min)]
-     nextGuess
+      end
+      nextGuess = guesses[guess_hash.index(guess_hash.min)]
+      nextGuess
    end
   end
 end

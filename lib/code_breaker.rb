@@ -1,3 +1,5 @@
+# frozen_string_literal :true
+
 class CodeBreaker
   def initialize
     code_maker = CodeMaker.new

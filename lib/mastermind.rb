@@ -1,10 +1,11 @@
+# frozen_string_literal :true
+
 require 'colorize'
 require_relative 'game_info'
 require_relative 'code_maker'
 require_relative 'code_breaker'
 require_relative 'computer_code_breaker'
 class MasterMind
-
   def play_mode
     instructions = GameInfo.new
     secret_code, mode = instructions.game_instructions
@@ -25,11 +26,11 @@ class MasterMind
         letters = code_maker.give_feedback(secret_code, guess)
         if letters.join('') == 'RRRR'
           puts 'You win!'
-          puts "Nailed it in #{i+1} guesses"
+          puts "Nailed it in #{i + 1} guesses"
           return
         else
-         print 'Feedback is: '
-          for i in (0...letters.length) 
+          print 'Feedback is: '
+          (0...letters.length).each do |i|
             if letters[i] == 'R'
               print '  '.on_red + ' '
             else
@@ -38,23 +39,23 @@ class MasterMind
           end
           puts "\n\n"
        end
-     end
-     puts "Better luck next time :("
-   else
-    change_secret_code_to_i = secret_code.split('').map do |code|
-                                  code.to_i
-                               end
-    12.times do |i|
-      guess = comp_code_breaker.knuth_algo(i+1)
-      code_breaker.guess_output(guess, "Computer's")
-      letters = code_maker.give_feedback(change_secret_code_to_i, guess)
+      end
+      puts 'Better luck next time :('
+    else
+      change_secret_code_to_i = secret_code.split('').map do |code|
+        code.to_i
+      end
+      12.times do |i|
+        guess = comp_code_breaker.knuth_algo(i + 1)
+        code_breaker.guess_output(guess, "Computer's")
+        letters = code_maker.give_feedback(change_secret_code_to_i, guess)
         if letters.join('') == 'RRRR'
           puts 'Computer wins!'
-          puts "Nailed it in #{i+1} guesses"
+          puts "Nailed it in #{i + 1} guesses"
           return
         else
-         print 'Feedback is: '
-          for i in (0...letters.length) 
+          print 'Feedback is: '
+          (0...letters.length).each do |i|
             if letters[i] == 'R'
               print '  '.on_red + ' '
             else
@@ -63,10 +64,10 @@ class MasterMind
           end
         end
         puts "\n\n"
-      comp_code_breaker.prune_possible_answers(guess, code_maker.outcomes)
-     end
+        comp_code_breaker.prune_possible_answers(guess, code_maker.outcomes)
+      end
    end
-   puts 'Computer loses :('
+    puts 'Computer loses :('
   end
 end
 

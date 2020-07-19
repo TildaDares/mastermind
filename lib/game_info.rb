@@ -1,12 +1,13 @@
+# frozen_string_literal :true
+
 require 'colorize'
 require_relative 'code_maker'
 class GameInfo
-
   def game_instructions
     code_maker = CodeMaker.new
-    print "We'll be playing a game called " + 'M'.blue + 'A'.red + 'S'.green + 'T'.blue 
+    print "We'll be playing a game called " + 'M'.blue + 'A'.red + 'S'.green + 'T'.blue
     print 'E'.white + 'R'.blue + 'M'.green + 'I'.yellow + 'N'.blue + 'D'.red
-    puts ""
+    puts ''
     puts <<-HEREDOC
        The rules are pretty simple. There are two game modes:
           1. Codebreaker
@@ -44,7 +45,7 @@ class GameInfo
         1. Codebreaker
         2. Codemaker
     HEREDOC
-    
+
     game_mode = gets.chomp
     until /^[12]$/ =~ game_mode
       puts 'Please enter either 1 or 2'
@@ -60,7 +61,7 @@ class GameInfo
     if game_mode == '2'
       secret_code = ''
       while (secret_code.length > 4 || secret_code.length < 4) || (/[0789]/ =~ secret_code)
-        puts "What will your code be? (only four numbers from 1-6 are allowed)"
+        puts 'What will your code be? (only four numbers from 1-6 are allowed)'
         print ' 1 '.on_red + ' '
         print ' 2 '.on_green + ' '
         print ' 3 '.on_yellow.black + ' '
@@ -70,7 +71,7 @@ class GameInfo
         puts ''
         secret_code = gets.chomp
       end
-      return secret_code, game_mode
+      [secret_code, game_mode]
     end
   end
 end
